@@ -4,6 +4,10 @@ class StringCalculator {
 
     companion object {
         private val delimiters = arrayOf(",", "\n")
+        private const val DECLARATION_OF_CUSTOM_DELIMITER = "//"
+        private const val EMPTY_STRING = ""
+        private val isPositiveOrZero: (Long) -> Boolean = { it >= 0 }
+        private val isLessThanOrEqualThousand: (Long) -> Boolean = { it <= 1000 }
     }
 
     fun add(input: String): Long {
@@ -11,25 +15,28 @@ class StringCalculator {
             0
         } else {
             val delimiters = getDelimiters(input)
-            val inputWithoutCustomDelimiter = getInputWithoutCustomDelimiter(input)
-            val (positiveNumbers, negativeNumbers) = splitToLongs(
-                inputWithoutCustomDelimiter,
+            val chainOfNumbers = getChainOfNumbers(input)
+            val (positiveOrZeroNumbers, negativeNumbers) = splitChainOfNumbers(
+                chainOfNumbers,
                 delimiters
-            ).partition { it >= 0 }
+            ).partition(isPositiveOrZero)
             if (negativeNumbers.isNotEmpty())
                 throw RuntimeException("negative numbers not allowed: $negativeNumbers")
 
-            positiveNumbers.filter { it <= 1000 }.sum()
+            positiveOrZeroNumbers.filter(isLessThanOrEqualThousand).sum()
         }
     }
 
     private fun getDelimiters(input: String): Array<String> {
-        val customDelimiter = input.substringAfter("//", "").takeIf { it.isNotBlank() }?.substringBefore("\n")
+        val customDelimiter =
+            input.substringAfter(DECLARATION_OF_CUSTOM_DELIMITER, EMPTY_STRING).takeIf { it.isNotBlank() }
+                ?.substringBefore(System.lineSeparator())
         return if (customDelimiter != null) arrayOf(*delimiters, customDelimiter) else arrayOf(*delimiters)
     }
 
-    private fun getInputWithoutCustomDelimiter(input: String) = input.substringAfter("//", "")
-        .takeIf { it.isNotBlank() }?.substringAfter("\n") ?: input
+    private fun getChainOfNumbers(input: String) = input.substringAfter(DECLARATION_OF_CUSTOM_DELIMITER, EMPTY_STRING)
+        .takeIf { it.isNotBlank() }?.substringAfter(System.lineSeparator()) ?: input
 
-    private fun splitToLongs(input: String, delimiters: Array<String>) = input.split(*delimiters).map { it.toLong() }
+    private fun splitChainOfNumbers(chainOfNumbers: String, delimiters: Array<String>) =
+        chainOfNumbers.split(*delimiters).map { it.toLong() }
 }

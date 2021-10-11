@@ -53,9 +53,10 @@ class StringCalculatorTest {
     @CsvSource(value = ["1\\n2;3", "2\\n10;12", "50\\n100;150", "900\\n900;1800"], delimiter = ';')
     fun `should return sum for the two numbers new line delimited`(input: String, expected: Long) {
         //given
+        val unescapedInput = input.unescapeJava()
 
         //when
-        val actual = tested.add(input.unescapeJava())
+        val actual = tested.add(unescapedInput)
 
         //then
         assertEquals(expected, actual)
@@ -68,9 +69,10 @@ class StringCalculatorTest {
     )
     fun `should return sum for the three numbers delimited by new line or comma`(input: String, expected: Long) {
         //given
+        val unescapedInput = input.unescapeJava()
 
         //when
-        val actual = tested.add(input.unescapeJava())
+        val actual = tested.add(unescapedInput)
 
         //then
         assertEquals(expected, actual)
@@ -112,9 +114,10 @@ class StringCalculatorTest {
         expected: Long
     ) {
         //given
+        val unescapedInput = input.unescapeJava()
 
         //when
-        val actual = tested.add(input.unescapeJava())
+        val actual = tested.add(unescapedInput)
 
         //then
         assertEquals(expected, actual)
@@ -127,9 +130,10 @@ class StringCalculatorTest {
         expected: Long
     ) {
         //given
+        val unescapedInput = input.unescapeJava()
 
         //when
-        val actual = tested.add(input.unescapeJava())
+        val actual = tested.add(unescapedInput)
 
         //then
         assertEquals(expected, actual)
