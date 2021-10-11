@@ -20,6 +20,7 @@
         <slf4j.version>1.7.32</slf4j.version>
         <jacoco.version>0.8.7</jacoco.version>
         <surefire.version>2.22.2</surefire.version>
+        <commons-text.version>1.9</commons-text.version>
     </properties>
 
     <dependencies>
@@ -50,6 +51,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${commons-text.version}</version>
         </dependency>
     </dependencies>
 
