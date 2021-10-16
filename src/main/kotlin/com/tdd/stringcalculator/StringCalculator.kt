@@ -14,36 +14,29 @@ class StringCalculator {
 
     fun add(input: String) = when (input.isBlank()) {
         true -> 0
-        false -> sum(filterLessThanOrEqual1000(assertNoNegatives(splitAndParse(input))))
+        false -> input.splitAndParse().assertNoNegatives().filterLessThanOrEqual1000().sum()
     }
 
-    private fun sum(numbers: List<Long>) = numbers.sum()
+    private fun List<Long>.filterLessThanOrEqual1000() = filter(isLessThanOrEqual1000)
 
-    private fun filterLessThanOrEqual1000(numbers: List<Long>) = numbers.filter(isLessThanOrEqual1000)
+    private fun List<Long>.assertNoNegatives() = partition(isNotNegative).throwIfFoundNegatives().first
 
-    private fun assertNoNegatives(numbers: List<Long>): List<Long> {
-        val (noNegatives, negatives) = numbers.partition(isNotNegative)
-        if (negatives.isNotEmpty()) {
-            throw RuntimeException("negative numbers not allowed: $negatives")
-        }
+    private fun Pair<NoNegatives, Negatives>.throwIfFoundNegatives() =
+        if (second.isNotEmpty()) throw RuntimeException("negative numbers not allowed: $second") else this
 
-        return noNegatives
+    private fun String.splitAndParse(): List<Long> {
+        val delimiters = extractCustomDelimiter().combineDelimiters()
+        return extractChainOfNumbers().split(*delimiters).map { it.toLong() }
     }
 
-    private fun splitAndParse(input: String): List<Long> {
-        val delimiters = combineDelimiters(extractCustomDelimiter(input))
-        return extractChainOfNumbers(input).split(*delimiters).map { it.toLong() }
-    }
-
-    private fun extractCustomDelimiter(input: String) =
-        input.substringAfter(DECLARATION_OF_CUSTOM_DELIMITER, EMPTY_STRING)
+    private fun String.extractCustomDelimiter() =
+        substringAfter(DECLARATION_OF_CUSTOM_DELIMITER, EMPTY_STRING)
             .takeIf { it.isNotBlank() }
             ?.substringBefore(NEW_LINE)
 
-    private fun combineDelimiters(customDelimiter: String?) =
-        customDelimiter?.let { standardDelimiters + it } ?: standardDelimiters
+    private fun String?.combineDelimiters() = if (this == null) standardDelimiters else standardDelimiters + this
 
-    private fun extractChainOfNumbers(input: String) =
-        input.substringAfter(DECLARATION_OF_CUSTOM_DELIMITER, EMPTY_STRING)
-            .takeIf { it.isNotBlank() }?.substringAfter(NEW_LINE) ?: input
+    private fun String.extractChainOfNumbers() =
+        substringAfter(DECLARATION_OF_CUSTOM_DELIMITER, EMPTY_STRING)
+            .takeIf { it.isNotBlank() }?.substringAfter(NEW_LINE) ?: this
 }
