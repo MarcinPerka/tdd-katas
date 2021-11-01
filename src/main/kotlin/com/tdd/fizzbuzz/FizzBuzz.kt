@@ -3,9 +3,9 @@ package com.tdd.fizzbuzz
 class FizzBuzz {
 
     companion object {
-        val FIZZ = "Fizz"
-        val BUZZ = "Buzz"
-        val FIZZ_BUZZ = "$FIZZ$BUZZ"
+        private const val FIZZ = "Fizz"
+        private const val BUZZ = "Buzz"
+        private const val FIZZ_BUZZ = "$FIZZ$BUZZ"
     }
 
     fun fizzBuzz(input: Int): String {
