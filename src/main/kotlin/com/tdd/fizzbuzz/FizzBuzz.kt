@@ -24,21 +24,21 @@ class FizzBuzz {
 
     fun fizzBuzz(input: Int): String {
         validateInput(input)
-        return findInRangeRules(input) ?: findInModRules(input)
-        ?: input.toString()
+        return findCompliantRangeRule(input) ?: findCompliantModRules(input) ?: input.toString()
     }
 
-    private fun findInRangeRules(input: Int) =
+    fun fizzBuzzSequence(range: IntRange = 1..100) = range.map { fizzBuzz(it) }
+
+    private fun findCompliantRangeRule(input: Int) =
         rangeRules.entries.firstOrNull { (_, rangeRule) -> rangeRule.contains(input) }?.key
 
-    private fun findInModRules(input: Int) =
+    private fun findCompliantModRules(input: Int) =
+        findMatchedModRules(input).joinToString(EMPTY) { it.key }.takeIf { it.isNotBlank() }
+
+    private fun findMatchedModRules(input: Int) =
         modRules.entries.filter { (_, mod) -> isCompliantWithModRule(mod, input) }
-            .joinToString(EMPTY) { it.key }
-            .takeIf { it.isNotBlank() }
 
     private fun isCompliantWithModRule(mod: Int, input: Int) = input % mod == 0
-
-    fun fizzBuzzSequence(range: IntRange = 1..100) = range.map { fizzBuzz(it) }
 
     private fun validateInput(input: Int) {
         if (input < 1 || input > 100)
