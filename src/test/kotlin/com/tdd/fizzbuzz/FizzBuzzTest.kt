@@ -14,6 +14,13 @@ class FizzBuzzTest {
     private val tested = FizzBuzz()
 
     companion object {
+        private const val FIZZ_BUZZ = "${FizzBuzz.FIZZ}${FizzBuzz.BUZZ}"
+        private const val FOO_BOO = "${FizzBuzz.FOO}${FizzBuzz.BOO}"
+        private const val FIZZ_FOO = "${FizzBuzz.FIZZ}${FizzBuzz.FOO}"
+        private const val FIZZ_BOO = "${FizzBuzz.FIZZ}${FizzBuzz.BOO}"
+        private const val BUZZ_FOO = "${FizzBuzz.BUZZ}${FizzBuzz.FOO}"
+        private const val BUZZ_BOO = "${FizzBuzz.BUZZ}${FizzBuzz.BOO}"
+
         @JvmStatic
         fun provideTestDataForSequence(): Stream<Arguments> {
             return Stream.of(
@@ -191,7 +198,7 @@ class FizzBuzzTest {
         val actual = tested.fizzBuzz(input)
 
         //then
-        assertEquals(FizzBuzz.FIZZ_BUZZ, actual)
+        assertEquals(FIZZ_BUZZ, actual)
     }
 
     @ParameterizedTest
@@ -203,7 +210,7 @@ class FizzBuzzTest {
         val actual = tested.fizzBuzz(input)
 
         //then
-        assertEquals(FizzBuzz.FOO_BOO, actual)
+        assertEquals(FOO_BOO, actual)
     }
 
     @ParameterizedTest
@@ -215,7 +222,7 @@ class FizzBuzzTest {
         val actual = tested.fizzBuzz(input)
 
         //then
-        assertEquals(FizzBuzz.FIZZ_FOO, actual)
+        assertEquals(FIZZ_FOO, actual)
     }
 
     @ParameterizedTest
@@ -227,7 +234,7 @@ class FizzBuzzTest {
         val actual = tested.fizzBuzz(input)
 
         //then
-        assertEquals(FizzBuzz.FIZZ_BOO, actual)
+        assertEquals(FIZZ_BOO, actual)
     }
 
     @ParameterizedTest
@@ -239,7 +246,7 @@ class FizzBuzzTest {
         val actual = tested.fizzBuzz(input)
 
         //then
-        assertEquals(FizzBuzz.BUZZ_FOO, actual)
+        assertEquals(BUZZ_FOO, actual)
     }
 
     @ParameterizedTest
@@ -251,7 +258,7 @@ class FizzBuzzTest {
         val actual = tested.fizzBuzz(input)
 
         //then
-        assertEquals(FizzBuzz.BUZZ_BOO, actual)
+        assertEquals(BUZZ_BOO, actual)
     }
 
     @ParameterizedTest
