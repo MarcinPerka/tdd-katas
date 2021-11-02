@@ -20,21 +20,21 @@ class FizzBuzzTest {
                 Arguments.of(
                     1..20,
                     listOf(
-                        "1",
-                        "2",
-                        "Fizz",
-                        "4",
-                        "Buzz",
-                        "Fizz",
-                        "Foo",
-                        "8",
-                        "Fizz",
-                        "Buzz",
-                        "Boo",
-                        "Fizz",
-                        "13",
-                        "Foo",
-                        "FizzBuzz",
+                        "Small",
+                        "Small",
+                        "Small",
+                        "Small",
+                        "Small",
+                        "Small",
+                        "Small",
+                        "Small",
+                        "Small",
+                        "Small",
+                        "Small",
+                        "Small",
+                        "Small",
+                        "Small",
+                        "Small",
                         "16",
                         "17",
                         "Fizz",
@@ -45,7 +45,7 @@ class FizzBuzzTest {
                 Arguments.of(
                     15..50,
                     listOf(
-                        "FizzBuzz",
+                        "Small",
                         "16",
                         "17",
                         "Fizz",
@@ -97,7 +97,7 @@ class FizzBuzzTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = [1, 2, 4, 13, 8, 86])
+    @ValueSource(ints = [41, 43, 46, 47, 26, 37])
     fun `should return number while input not multiples three or five`(input: Int) {
         //given
 
@@ -109,7 +109,7 @@ class FizzBuzzTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = [3, 9, 6, 12, 18, 96])
+    @ValueSource(ints = [24, 27, 36, 39, 18])
     fun `should return Fizz while input multiples of three`(input: Int) {
         //given
 
@@ -121,7 +121,7 @@ class FizzBuzzTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = [5, 10, 20, 100, 85])
+    @ValueSource(ints = [25, 40, 20, 85])
     fun `should return Buzz while input multiples of five`(input: Int) {
         //given
 
@@ -141,10 +141,6 @@ class FizzBuzzTest {
 
         //then
         assertEquals(100, actual.size)
-        assertEquals("1", actual.first())
-        assertEquals(FizzBuzz.FIZZ, actual[2])
-        assertEquals(FizzBuzz.BUZZ, actual[4])
-        assertEquals(FizzBuzz.FIZZ_BUZZ, actual[14])
     }
 
     @ParameterizedTest
@@ -162,7 +158,7 @@ class FizzBuzzTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = [7, 14, 28, 49])
+    @ValueSource(ints = [91, 28, 49])
     fun `should return Foo while input multiples of seven`(input: Int) {
         //given
 
@@ -174,7 +170,7 @@ class FizzBuzzTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = [11, 22, 44, 88])
+    @ValueSource(ints = [22, 44, 88])
     fun `should return Boo while input multiples of eleven`(input: Int) {
         //given
 
@@ -187,7 +183,7 @@ class FizzBuzzTest {
 
 
     @ParameterizedTest
-    @ValueSource(ints = [15, 30, 45, 60, 75, 90])
+    @ValueSource(ints = [30, 45, 60, 75, 90])
     fun `should return FizzBuzz while input multiples of five and three`(input: Int) {
         //given
 
@@ -223,7 +219,7 @@ class FizzBuzzTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = [33, 66, 99])
+    @ValueSource(ints = [33, 66])
     fun `should return FizzBoo while input multiples of three and eleven`(input: Int) {
         //given
 
@@ -256,5 +252,29 @@ class FizzBuzzTest {
 
         //then
         assertEquals(FizzBuzz.BUZZ_BOO, actual)
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = [1, 5, 10, 15])
+    fun `should return Small while input is smaller than 16`(input: Int) {
+        //given
+
+        //when
+        val actual = tested.fizzBuzz(input)
+
+        //then
+        assertEquals(FizzBuzz.SMALL, actual)
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = [96, 97, 98, 99, 100])
+    fun `should return Big while input is more than 95`(input: Int) {
+        //given
+
+        //when
+        val actual = tested.fizzBuzz(input)
+
+        //then
+        assertEquals(FizzBuzz.BIG, actual)
     }
 }
