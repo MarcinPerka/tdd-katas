@@ -1,7 +1,6 @@
 package com.tdd.fizzbuzz
 
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -20,6 +19,7 @@ class FizzBuzzTest {
         private const val FIZZ_BOO = "${FizzBuzz.FIZZ}${FizzBuzz.BOO}"
         private const val BUZZ_FOO = "${FizzBuzz.BUZZ}${FizzBuzz.FOO}"
         private const val BUZZ_BOO = "${FizzBuzz.BUZZ}${FizzBuzz.BOO}"
+        private const val XD = "XD"
 
         @JvmStatic
         fun provideTestDataForSequence(): Stream<Arguments> {
@@ -92,15 +92,6 @@ class FizzBuzzTest {
                 )
             )
         }
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = [0, -1, 101, -100, 200, -10000])
-    fun `should throw when input is less than one or greater than 100`(input: Int) {
-        //given
-
-        //when && then
-        assertThrows<InvalidNumberException> { tested.fizzBuzz(input) }
     }
 
     @ParameterizedTest
@@ -283,5 +274,44 @@ class FizzBuzzTest {
 
         //then
         assertEquals(FizzBuzz.BIG, actual)
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = [25, 40, 20, 85])
+    fun `should return Fizz while input multiples of five - inverted initial rules`(input: Int) {
+        //given
+        val tested = FizzBuzz(modRules = mapOf(FizzBuzz.FIZZ to 5, FizzBuzz.BUZZ to 3))
+
+        //when
+        val actual = tested.fizzBuzz(input)
+
+        //then
+        assertEquals(FizzBuzz.FIZZ, actual)
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = [24, 27, 36, 39, 18])
+    fun `should return Buzz while input multiples of five - inverted initial rules`(input: Int) {
+        //given
+        val tested = FizzBuzz(modRules = mapOf(FizzBuzz.FIZZ to 5, FizzBuzz.BUZZ to 3))
+
+        //when
+        val actual = tested.fizzBuzz(input)
+
+        //then
+        assertEquals(FizzBuzz.BUZZ, actual)
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = [9, 18, 81, 90])
+    fun `should return XD while input multiples 9 - new initial mod rules and empty range rules`(input: Int) {
+        //given
+        val tested = FizzBuzz(rangeRules = emptyMap(), modRules = mapOf(XD to 9))
+
+        //when
+        val actual = tested.fizzBuzz(input)
+
+        //then
+        assertEquals(XD, actual)
     }
 }

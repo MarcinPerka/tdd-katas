@@ -1,6 +1,9 @@
 package com.tdd.fizzbuzz
 
-class FizzBuzz {
+class FizzBuzz(
+    private val rangeRules: Map<String, IntRange> = mapOf(SMALL to (1..15), BIG to (95..100)),
+    private val modRules: Map<String, Int> = mapOf(FIZZ to 3, BUZZ to 5, FOO to 7, BOO to 11)
+) {
 
     companion object {
         const val FIZZ = "Fizz"
@@ -12,18 +15,7 @@ class FizzBuzz {
         private const val EMPTY = ""
     }
 
-    private val rangeRules = mapOf(SMALL to (1..15), BIG to (95..100))
-
-    private val modRules =
-        mapOf(
-            FIZZ to 3,
-            BUZZ to 5,
-            FOO to 7,
-            BOO to 11
-        )
-
     fun fizzBuzz(input: Int): String {
-        validateInput(input)
         return findCompliantRangeRule(input) ?: findConcatenatedCompliantModRules(input) ?: input.toString()
     }
 
@@ -39,9 +31,4 @@ class FizzBuzz {
         modRules.entries.filter { (_, mod) -> isCompliantWithModRule(mod, input) }
 
     private fun isCompliantWithModRule(mod: Int, input: Int) = input % mod == 0
-
-    private fun validateInput(input: Int) {
-        if (input < 1 || input > 100)
-            throw InvalidNumberException()
-    }
 }
