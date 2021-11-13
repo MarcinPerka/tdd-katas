@@ -314,4 +314,29 @@ class FizzBuzzTest {
         //then
         assertEquals(XD, actual)
     }
+
+    @ParameterizedTest
+    @ValueSource(ints = [30, 45, 60, 75, 90])
+    fun `should return FTW while input multiples of five and three and extendedModsEnabled is enabled`(input: Int) {
+        //given
+        val tested = FizzBuzz(extendedModsEnabled = true)
+
+        //when
+        val actual = tested.fizzBuzz(input)
+
+        //then
+        assertEquals(FizzBuzz.FTW, actual)
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = [25, 40, 20, 85, 24, 27, 36, 39, 18])
+    fun `should return GG while input multiples of five or three and extendedModsEnabled is enabled`(input: Int) {
+        //given
+        val tested = FizzBuzz(extendedModsEnabled = true)
+        //when
+        val actual = tested.fizzBuzz(input)
+
+        //then
+        assertEquals(FizzBuzz.GG, actual)
+    }
 }
