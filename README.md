@@ -95,5 +95,6 @@ exploration of different approaches.
 * Add a way to change range, instead of printing numbers from 1 to 100. Examples: numbers from 1 to 20, from 15 to 50.
 * Add rules for 7 and 11: 7 returns "Foo", 11 returns "Boo" and multiples of both return "FooBoo".
 * Add new rule for numbers smaller than 16 which return "Small" and a rule for numbers bigger than 95 which return "Big".
+* Common multiples should be concatenated, e.g. number 21 is "FizzFoo" and number 77 is "FooBoo"
 * Add ability to change rules for initial requirement, instead of "Fizz" (multiples of 3) return "Buzz", and instead of "Buzz" (multiples of 5) return "Fizz"
 * Add new rule for "multiples of 3 and 5" return "FTW", and for "multiples of 3 or 5" return "GG"
