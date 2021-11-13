@@ -333,6 +333,7 @@ class FizzBuzzTest {
     fun `should return GG while input multiples of five or three and extendedModsEnabled is enabled`(input: Int) {
         //given
         val tested = FizzBuzz(extendedModsEnabled = true)
+
         //when
         val actual = tested.fizzBuzz(input)
 
